@@ -1,47 +1,52 @@
-const CACHE="teacher-emotion-v1";
+const CACHE_NAME = "teacher-emotion-v2";
 
-
-const files=[
-
-"./",
-"index.html",
-"manifest.json"
-
+const APP_FILES = [
+    "./",
+    "./index.html",
+    "./manifest.json"
 ];
 
 
+self.addEventListener("install", event => {
 
-self.addEventListener(
-"install",
-event=>{
+    event.waitUntil(
 
-event.waitUntil(
+        caches.open(CACHE_NAME)
+        .then(cache => {
 
-caches.open(CACHE)
-.then(cache=>cache.addAll(files))
+            return cache.addAll(APP_FILES);
 
-);
+        })
+
+    );
+
+    self.skipWaiting();
 
 });
 
 
 
+self.addEventListener("activate", event => {
 
-self.addEventListener(
-"fetch",
-event=>{
+    event.waitUntil(
+        self.clients.claim()
+    );
+
+});
 
 
-event.respondWith(
 
-caches.match(event.request)
-.then(response=>{
+self.addEventListener("fetch", event => {
 
-return response || fetch(event.request);
+    event.respondWith(
 
-})
+        caches.match(event.request)
+        .then(response => {
 
-);
+            return response || fetch(event.request);
 
+        })
+
+    );
 
 });
