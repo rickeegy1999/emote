@@ -3,7 +3,9 @@ const CACHE_NAME = "teacher-emotion-v2";
 const APP_FILES = [
     "./",
     "./index.html",
-    "./manifest.json"
+    "./manifest.json",
+    "./emoicon-192.png",
+    "./emoicon-512.png"
 ];
 
 
